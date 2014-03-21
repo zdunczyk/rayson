@@ -5,6 +5,8 @@ var vm = require('vm'),
     dirs = require('./require.json'),
     i = 0;
 
+global.using = require('./jasmine-ext.js');
+
 function include_dir(dir) {
     var fs, 
         libs = '';
