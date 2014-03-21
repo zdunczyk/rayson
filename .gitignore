@@ -1,2 +1,4 @@
 index.js
 release
+tests/pack
+node_modules

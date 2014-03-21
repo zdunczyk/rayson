@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Jasmine Spec Runner v2.0.0</title>
+
+  <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.0.0/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="lib/jasmine-2.0.0/jasmine.css">
+
+  <script type="text/javascript" src="lib/jasmine-2.0.0/jasmine.js"></script>
+  <script type="text/javascript" src="lib/jasmine-2.0.0/jasmine-html.js"></script>
+  <script type="text/javascript" src="lib/jasmine-2.0.0/boot.js"></script>
+
+  <script>
+    function require() { }
+
+    function load_script(path, onload) {
+        var script_tag = document.createElement('script');
+        script_tag.setAttribute('type', 'text/javascript');
+        script_tag.setAttribute('src', path);
+        script_tag.onload = onload;        
+        document.getElementsByTagName('head')[0].appendChild(script_tag); 
+    }
+
+    var release = window.location.hash.slice(1);
+    
+    load_script('../../release/' + release + '.min.js', function() {
+        load_script('../pack/' + release + '.js', function() {
+            for(var path in testpack) {
+                load_script('../../' + testpack[path]);
+            }
+        });
+    });
+  </script>
+</head>
+
+<body>
+</body>
+</html>
