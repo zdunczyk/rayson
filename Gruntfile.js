@@ -26,6 +26,10 @@ module.exports = function(grunt) {
                 src: [ 'lib/*.js', 'lib/type/*.js' ],
                 dest: '<%= external.release_dir %>/<%= external.release_name %>.js'
             }
+        },
+        testpack: {
+            specdirs: [ 'tests/unit', 'tests/integration' ],
+            packdir: 'tests/pack'
         }
     });
 
@@ -34,10 +38,14 @@ module.exports = function(grunt) {
 
     grunt.registerTask('testpack', function() {
         var paths = [];
-        grunt.file.recurse('tests/unit', function(abspath) {
-            paths.push(abspath);    
+        
+        (grunt.config('testpack.specdirs')).forEach(function(dir) {
+            grunt.file.recurse(dir, function(abspath) {
+                paths.push(abspath);    
+            });
         });
-        grunt.file.write('tests/pack/' + external.release_name + '.js', 
+        
+        grunt.file.write(grunt.config('testpack.packdir') + '/' + external.release_name + '.js', 
             'var testpack = ' + JSON.stringify(paths)
         );
     });
