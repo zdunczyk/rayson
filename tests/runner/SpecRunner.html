@@ -26,7 +26,7 @@
 
     var release = window.location.hash.slice(1);
     
-    load_script('../../release/' + release + '.min.js', function() {
+    load_script('../../release/' + release + '.js', function() {
         load_script('../pack/' + release + '.js', function() {
             for(var path in testpack) {
                 load_script('../../' + testpack[path]);
