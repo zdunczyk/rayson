@@ -27,7 +27,7 @@ describe("Array of tree's nodes", function() {
         });
         
         expect(key_val).toEqual([
-            [ undefined, '' ],
+            [ rayson.node.ROOT_KEY, '' ],
             [ 'obj1', '' ],
             [ 'arr1', '' ],
             [ undefined, 'val1' ],
