@@ -12,12 +12,16 @@ function using(name, values, func){
     }
 }
 
-jasmine.Matchers.prototype.jsonEqual = function(expected) {
-    var actual = JSON.stringify(this.actual).replace(/(\\t|\\n)/g, '');
-    expected = JSON.stringify(expected).replace(/(\\t|\\n)/g, '');
+beforeEach(function() {
+    this.addMatchers({
+        jsonEqual: function(expected) {
+            var actual = JSON.stringify(this.actual).replace(/(\\t|\\n)/g, '');
+            expected = JSON.stringify(expected).replace(/(\\t|\\n)/g, '');
 
-    return actual === expected;
-}; 
+            return actual === expected;
+        }
+    });    
+});
 
 if(typeof module !== 'undefined')
     module.exports = using;

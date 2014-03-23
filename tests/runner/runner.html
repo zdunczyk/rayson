@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Jasmine Spec Runner: Jasmine Core</title>
+
+  <link rel="shortcut icon" type="image/png" href="jasmine/jasmine_favicon.png">
+
+  <link href="jasmine/jasmine.css" rel="stylesheet"/>
+  <script type="text/javascript" src="jasmine/jasmine.js"></script>
+  <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
+  
+  <script type="text/javascript" src="../jasmine-ext.js"></script>
+
+  <script type="text/javascript">
+    (function() {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+
+      var htmlReporter = new jasmine.HtmlReporter();
+
+      jasmineEnv.addReporter(htmlReporter);
+
+      jasmineEnv.specFilter = function(spec) {
+        return htmlReporter.specFilter(spec);
+      };
+
+      var currentWindowOnload = window.onload;
+
+      window.onload = function() {
+        if (currentWindowOnload) {
+          currentWindowOnload();
+        }
+        execJasmine();
+      };
+
+      function execJasmine() {
+        jasmineEnv.execute();
+      }
+
+    })();
+  </script>
+
+  <script type="text/javascript">
+    function require() { }
+
+    function load_script(path, onload) {
+        var script_tag = document.createElement('script');
+        script_tag.setAttribute('type', 'text/javascript');
+        script_tag.setAttribute('src', path);
+        script_tag.onload = onload;        
+        document.getElementsByTagName('head')[0].appendChild(script_tag); 
+    }
+
+    var release = window.location.hash.slice(1);
+    
+    load_script('../../release/' + release + '.js', function() {
+        load_script('../pack/' + release + '.js', function() {
+            for(var path in testpack) {
+                load_script('../../' + testpack[path]);
+            }
+        });
+    });
+  </script>
+</head>
+
+<body>
+</body>
+</html>
