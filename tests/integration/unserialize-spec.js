@@ -133,4 +133,26 @@ describe("Unserialization", function() {
         expect(unserialized).jsonEqual(result); 
     });
 
+    it('should support simple non-object arrays', function() {
+        var data = {
+            start: 'start',
+            arr: [ 2, 6, 3, 8, 9 ],
+            end: true
+        };
+
+        var template = {
+            start: str,
+            arr: [ int32 ],
+            end: bool
+        };
+        
+        var serialized = rayson.serialize(data, {
+            start: str,
+            arr: int32,
+            end: bool
+        }),       
+            unserialized = rayson.unserialize(serialized, template);
+       
+        expect(unserialized).jsonEqual(data); 
+    });
 });
