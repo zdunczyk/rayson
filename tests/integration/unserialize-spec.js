@@ -155,4 +155,45 @@ describe("Unserialization", function() {
        
         expect(unserialized).jsonEqual(data); 
     });
+
+    it('gets all descedant nodes when there is specified array with single \
+        type in template', function() {
+        
+        var data = {
+            start: -23,
+            obj: {
+                arr: [
+                    { a: 'zxc', b: 'cxz', c: [ 'asd', 'fgh' ] },       
+                    { a: 'asd', b: 'dsa', c: [ 'ljk' ] }       
+                ],
+                objval: 'foo'
+            },
+            end: true
+        };
+
+        var result = {
+            start: -23,
+            obj: [
+                [ 
+                    [ 'zxc', 'cxz', [ 'asd', 'fgh' ]],
+                    [ 'asd', 'dsa', [ 'ljk' ]]
+                ],
+                'foo'
+            ],
+            end: true
+       };
+        
+        var serialized = rayson.serialize(data, {
+                start: int8,
+                obj: str,
+                end: bool
+            }),
+            unserialized = rayson.unserialize(serialized, {
+                start: int8,
+                obj: [ str ],
+                end: bool
+            });
+
+        expect(unserialized).jsonEqual(result); 
+    });
 });
